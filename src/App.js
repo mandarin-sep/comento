@@ -1,18 +1,14 @@
-import Demo from "./pages/Demo";
 import Footer from "./pages/Footer";
-import Header from "./pages/Header";
-import Introduction from "./pages/Introduction";
-import Speciality from "./pages/Speciality";
+import Header from "./components/Header";
+import Stock from "./pages/Stock";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Header />
-      <Introduction />
-      <Demo />
-      <Speciality />
+      <Stock />
       <Footer />
-    </div>
+    </>
   );
 }
 
