@@ -1,15 +1,15 @@
 import React from "react";
 import EngineStrength from "../components/EngineStrength";
-import Demo from "./pages/Demo";
-import Intro from "./pages/Intro";
+import Demo from "../components/Demo";
+import Intro from "../components/Intro";
 
 const Stock = () => {
   return (
-    <>
+    <div className="container">
       <Intro />
       <Demo />
       <EngineStrength />
-    </>
+    </div>
   );
 };
 
