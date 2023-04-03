@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../assets/logo.png";
 
 const Header = () => {
   return (
@@ -6,7 +7,7 @@ const Header = () => {
       <div className="header2">
         <nav className="gnb inner">
           <a href="index.html">
-            <img className="logo" src="../assets/logo.png" alt="logo" />
+            <img className="logo" src={Logo} alt="logo" />
           </a>
           <ul>
             <li className="on">

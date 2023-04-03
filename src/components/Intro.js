@@ -2,9 +2,9 @@ import React from "react";
 
 const Intro = () => {
   return (
-    <div class="explainContainer inner">
+    <div className="explainContainer inner">
       <h1>주식 종목 추천 엔진</h1>
-      <span class="explain">
+      <span className="explain">
         주식 종목 추천 엔진은 AI가 뉴스를 학습하고 내용에 부합하는 종목명을
         추천합니다.
         <br />
