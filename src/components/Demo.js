@@ -5,6 +5,7 @@ import { sentence } from "./sentence";
 
 const Demo = () => {
   const [IsLoading, setIsLoading] = useState(false);
+  const [companys, setCompanys] = useState({})
   const data = [
     {
       stock: "한솔케미칼", // 회사이름
@@ -47,6 +48,21 @@ const Demo = () => {
       setIsLoading(false);
     }, 3000);
   };
+
+  //색깔 선택
+  const colorPicker = (companyName) => {
+    //hasOwnProperty로 key 값 있나 확인
+    if(companys.hasOwnProperty(companyName)){
+
+    } else {
+      const colorA = Math.floor(Math.random() * 256 )
+      const colorB = Math.floor(Math.random() * 256 )
+      const colorC = Math.floor(Math.random() * 256 )
+      //동적으로 key 값을 할당
+      setCompanys({...companys, [companyName]: `rgb( ${colorA}, ${colorB}, ${colorC})`})
+    }
+    return companys[companyName]
+  }
 
   const text = `SK증권은 한솔케미칼에 대해 올해와 내년 연결 영업이익 전망치 하향이 예상된다며 투자의견은 '매수'를 유지했으나 목표주가는
   28만원으로 15% 하향했다.한동희 SK증권 연구원은 24일 "3분기 실적 부진과 내년 업황 둔화를 감안해 한솔케미칼의 올해와 내년
@@ -254,6 +270,9 @@ const Demo = () => {
             </div>
             <div className="resultSection2">
               <p className="title">Sentence 분석</p>
+              {IsLoading ? (
+                <CircularProgress />
+              ) : (
               <div className="visualization">
                 <div
                   className="sentenceReport2"
@@ -297,7 +316,7 @@ const Demo = () => {
                 </div>
                 <div
                   className="sentenceReport2"
-                  style={{ backgroundColor: "rgba(99, 149, 249, 0.15)" }}
+                  style={{ backgroundColor: colorPicker("삼성") }}
                 >
                   <p className="sentence">{sentence[2].sentence}</p>
                   <p className="percent">
@@ -317,7 +336,7 @@ const Demo = () => {
                 </div>
                 <div
                   className="sentenceReport2"
-                  style={{ backgroundColor: "rgb(245, 245, 245)" }}
+                  style={{ backgroundColor: colorPicker("하이닉스") }}
                 >
                   <p className="sentence">{sentence[3].sentence}</p>
                   <p className="percent">
@@ -326,7 +345,7 @@ const Demo = () => {
                 </div>
                 <div
                   className="sentenceReport2"
-                  style={{ backgroundColor: "rgb(245, 245, 245)" }}
+                  style={{ backgroundColor: colorPicker("하이닉스") }}
                 >
                   <p className="sentence">{sentence[4].sentence}</p>
                   <p className="percent">
@@ -334,6 +353,7 @@ const Demo = () => {
                   </p>
                 </div>
               </div>
+              )}
             </div>
           </div>
         </div>
