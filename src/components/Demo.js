@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import { Pie } from "@ant-design/plots";
 import CircularProgress from "@mui/material/CircularProgress";
-import { sentence } from "./sentence";
+import axios from "axios";
+import sampleNews from "../assets/sentence";
 
 const Demo = () => {
   const [IsLoading, setIsLoading] = useState(false);
-  const [companys, setCompanys] = useState({})
-  const data = [
-    {
-      stock: "한솔케미칼", // 회사이름
-      score: 0.7434849143028259, //결과수치
-      logit: 21.69752311706543, //뉴스와 회사명의 밀접도
-    },
-    {
-      stock: "SK",
-      score: 0.24532733857631683,
-      logit: 20.588768005371094,
-    },
-  ];
+  const [companys, setCompanys] = useState({ "": "0, 0, 0" });
+  const [nothing, setNothing] = useState(true);
+  const [index, setIndex] = useState();
+  const [result, setResult] = useState({});
+  const [sampleCliked, setSampledClicked] = useState(false);
+  const url = "https://d9390710-b9c8-490b-8005-e11d0772b58c.mock.pstmn.io";
+
+  const data = result.answer;
+
   const config = {
     appendPadding: 10,
     data,
@@ -43,35 +40,175 @@ const Demo = () => {
   };
 
   const handleClick = () => {
+    if (!sampleCliked) {
+      window.alert("추출할 뉴스가 선택되지않았습니다");
+      return;
+    }
+    axios
+      .get(`${url}/stock/news?idx=${index}`)
+      .then((response) => {
+        console.log(response.data);
+        //결과 데이터를 받아와 상태 수정
+        setResult(response.data);
+      })
+      .catch((err) => console.log(err.message));
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+      setNothing(false);
+    }, 2000);
+  };
+
+  const indexClick = (e) => {
+    setIndex(e.target.id);
+    setSampledClicked(true);
   };
 
   //색깔 선택
-  const colorPicker = (companyName) => {
+  const colorPicker = (companyName, isBgc = false) => {
     //hasOwnProperty로 key 값 있나 확인
-    if(companys.hasOwnProperty(companyName)){
-
+    if (companys.hasOwnProperty(companyName)) {
     } else {
-      const colorA = Math.floor(Math.random() * 256 )
-      const colorB = Math.floor(Math.random() * 256 )
-      const colorC = Math.floor(Math.random() * 256 )
-      //동적으로 key 값을 할당
-      setCompanys({...companys, [companyName]: `rgb( ${colorA}, ${colorB}, ${colorC})`})
-    }
-    return companys[companyName]
-  }
+      const colorA = Math.floor(Math.random() * 256);
+      const colorB = Math.floor(Math.random() * 256);
+      const colorC = Math.floor(Math.random() * 256);
 
-  const text = `SK증권은 한솔케미칼에 대해 올해와 내년 연결 영업이익 전망치 하향이 예상된다며 투자의견은 '매수'를 유지했으나 목표주가는
-  28만원으로 15% 하향했다.한동희 SK증권 연구원은 24일 "3분기 실적 부진과 내년 업황 둔화를 감안해 한솔케미칼의 올해와 내년
-  연결 영업이익 전망치를 각각 12%, 13% 하향 조정한다"고 말했다. 앞서 한솔케미칼의 3분기 연결 실적은 매출 2160억원, 영업이익
-  457억원으로 시장컨센서스를 각각 6%, 16% 하회했다. 당초 3분기 TV 등 성수기 진입 효과에 따른 퀀텀닷(QD) 소재 회복을
-  예상했으나 글로벌 경기 위축에 따른 전방 재고 조정으로 QD 소재 및 테이팩스의 스마트폰향 판매 부진, 천연가스 및 유가 등 원재료
-  가격 상승 영향으로 과산화수소의 수익성이 하락한 영향으로 추정된다.올해 4분기 연결 실적은 매출 2355억원, 영업이익
-  353억원으로 예상된다. QD 소재는 전방 재고조정 일단락 효과에 따른 회복, 과산화수소는 원재료 가격 상승분의 판가 전가로
-  수익성이 회복되기 시작할 것으로 전망된다.`;
+      //동적으로 key 값을 할당
+      setCompanys({
+        ...companys,
+        [companyName]: `${colorA}, ${colorB}, ${colorC}`,
+      });
+    }
+
+    if (isBgc) {
+      return `rgba(${companys[companyName]}, 0.15)`;
+    }
+
+    return `rgb(${companys[companyName]})`;
+  };
+
+  const Nothing = () => {
+    return (
+      <div
+        style={{
+          color: "rgb(181,181,181)",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        뉴스를 입력하고 결과를 확인하세요
+      </div>
+    );
+  };
+
+  const SentenceFunc = (item) => {
+    let stockPercent = Number.MIN_SAFE_INTEGER;
+    let stockName = "";
+
+    item.condition.forEach((cond) => {
+      const now = Number((cond.score.toFixed(2) * 100).toFixed(0));
+      stockPercent = Math.max(now, stockPercent);
+      if (now === stockPercent) {
+        stockName = cond.stock;
+      }
+    });
+
+    return (
+      <div
+        className="sentenceReport2"
+        style={{ backgroundColor: colorPicker(stockName, true) }}
+      >
+        <p className="sentence">{item.sentence}</p>
+        <p className="percent">
+          <span>{stockName}&nbsp;&nbsp;&nbsp;</span>
+          <span
+            style={{
+              color: colorPicker(stockName),
+              fontWeight: "bold",
+              opacity: "1",
+            }}
+          >
+            {item.condition.length === 0 ? "없음" : `${stockPercent}%`}
+          </span>
+        </p>
+      </div>
+    );
+  };
+
+  const DetailAnalyze = (answer) => {
+    return (
+      <div>
+        <p
+          style={{
+            marginTop: "24px",
+            height: "19px",
+            fontWeight: "bold",
+            width: "130px",
+          }}
+        >
+          <span
+            style={{
+              marginTop: "-20px",
+              fontSize: "30px",
+              verticalAlign: "sub",
+              color: colorPicker(answer.stock),
+            }}
+          >
+            {" "}
+            •{" "}
+          </span>
+          {answer.stock}
+        </p>
+        <p style={{ width: "270px" }}>
+          "Score": {answer.score}
+          <br /> "Logit": {answer.logit}
+        </p>
+      </div>
+    );
+  };
+
+  const ListName = (answer) => {
+    return (
+      <p
+        style={{
+          marginTop: "24px",
+          height: "19px",
+          fontWeight: "bold",
+          color: colorPicker(answer.stock),
+        }}
+      >
+        <span
+          style={{
+            marginTop: "0px",
+            fontSize: "30px",
+            verticalAlign: "sub",
+            color: colorPicker(answer.stock),
+          }}
+        >
+          {" "}
+          •{" "}
+        </span>
+        {answer.stock} {(answer.score.toFixed(2) * 100).toFixed(0)}%
+      </p>
+    );
+  };
+
+  const ResultName = () => {
+    let name;
+    let max = Number.MIN_SAFE_INTEGER;
+
+    result.answer.forEach((answer) => {
+      const now = Number((answer.score.toFixed(2) * 100).toFixed(0));
+      max = Math.max(now, max);
+      if (now === max) {
+        name = answer.stock;
+      }
+    });
+
+    return name;
+  };
 
   return (
     <div style={{ backgroundColor: "rgb(255, 255, 255)" }}>
@@ -84,36 +221,53 @@ const Demo = () => {
               <span>
                 <strong>샘플 뉴스</strong>
               </span>
-              <span className="keywordBtn ">카카오</span>
-              <span className="keywordBtn click ">화장품</span>
-              <span className="keywordBtn ">삼성</span>
-              <span className="keywordBtn ">스마트폰</span>
+              <span id={0} className="keywordBtn" onClick={indexClick}>
+                카카오
+              </span>
+              <span id={1} className="keywordBtn" onClick={indexClick}>
+                화장품
+              </span>
+              <span id={2} className="keywordBtn" onClick={indexClick}>
+                삼성
+              </span>
+              <span id={3} className="keywordBtn" onClick={indexClick}>
+                스마트폰
+              </span>
             </div>
           </div>
           <div className="inputWrapper">
-            <div>
-              <div>
-                <input
-                  aria-invalid="false"
-                  id="inputTitle"
-                  placeholder="뉴스 제목"
-                  type="text"
-                  value='"한솔케미칼, 올해·내년 영업이익 전망치 하향에 목표가↓"-SK'
-                />
-              </div>
-            </div>
-            <div>
-              <div>
-                <textarea
-                  rows="12"
-                  aria-invalid="false"
-                  id="inputContext"
-                  placeholder="뉴스 본문"
-                  style={{ height: " 276px" }}
-                  value={text}
-                ></textarea>
-              </div>
-            </div>
+            {sampleCliked ? (
+              <>
+                <div>
+                  <div>
+                    <input
+                      aria-invalid="false"
+                      id="inputTitle"
+                      placeholder="뉴스 제목"
+                      type="text"
+                      value={sampleNews[index].query}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <textarea
+                      rows="12"
+                      aria-invalid="false"
+                      id="inputContext"
+                      placeholder="뉴스 본문"
+                      style={{ height: " 276px" }}
+                      value={sampleNews[index].context}
+                    ></textarea>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div id="inputTitle">뉴스 제목</div>
+                <div id="inputContext">뉴스 본문</div>
+              </>
+            )}
           </div>
           <button
             className="analysisBtn"
@@ -132,139 +286,49 @@ const Demo = () => {
                 <CircularProgress />
               ) : (
                 <div className="visualization">
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div className="chartExplain">
-                      <p className="subtitle result">Result</p>
-                      <p
-                        style={{
-                          marginTop: "24px",
-                          height: "19px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        <span
-                          style={{
-                            marginTop: "0px",
-                            fontSize: "30px",
-                            verticalAlign: "sub",
-                            color: "rgb(99, 149, 249)",
-                          }}
-                        >
-                          {" "}
-                          •{" "}
-                        </span>
-                        한솔케미칼
-                      </p>
-                      <p className="subtitle list">List</p>
-                      <p
-                        style={{
-                          marginTop: "24px",
-                          height: "19px",
-                          fontWeight: "bold",
-                          color: "rgb(99, 149, 249)",
-                        }}
-                      >
-                        <span
-                          style={{
-                            marginTop: "0px",
-                            fontSize: "30px",
-                            verticalAlign: "sub",
-                            color: "rgb(99, 149, 249)",
-                          }}
-                        >
-                          {" "}
-                          •{" "}
-                        </span>
-                        한솔케미칼 74%
-                      </p>
-                      <p
-                        style={{
-                          marginTop: "24px",
-                          height: "19px",
-                          fontWeight: "bold",
-                          color: "rgb(98, 218, 171)",
-                        }}
-                      >
-                        <span
-                          style={{
-                            marginTop: "0px",
-                            fontSize: "30px",
-                            verticalAlign: "sub",
-                            color: "rgb(98, 218, 171)",
-                          }}
-                        >
-                          {" "}
-                          •{" "}
-                        </span>
-                        SK 24%
-                      </p>
-                    </div>
-                    <div className="chart">
-                      <Pie {...config} />
-                    </div>
-                    <div className="detailExplain">
-                      <p
-                        className="subtitle result"
-                        style={{ textAlign: "left" }}
-                      >
-                        세부 분석결과
-                      </p>
-                      <div>
+                  {nothing ? (
+                    <Nothing />
+                  ) : (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div className="chartExplain">
+                        <p className="subtitle result">Result</p>
                         <p
                           style={{
                             marginTop: "24px",
                             height: "19px",
                             fontWeight: "bold",
-                            width: "130px",
                           }}
                         >
                           <span
                             style={{
-                              marginTop: "-20px",
+                              marginTop: "0px",
                               fontSize: "30px",
                               verticalAlign: "sub",
-                              color: "rgb(99, 149, 249)",
+                              color: colorPicker(ResultName()),
                             }}
                           >
                             {" "}
                             •{" "}
                           </span>
-                          한솔케미칼
+                          {ResultName()}
                         </p>
-                        <p style={{ width: "270px" }}>
-                          "Score": 0.7434849143028259
-                          <br /> "Logit": 21.697523117065
-                        </p>
+                        <p className="subtitle list">List</p>
+                        {result.answer.map(ListName)}
                       </div>
-                      <div>
+                      <div className="chart">
+                        <Pie {...config} />
+                      </div>
+                      <div className="detailExplain">
                         <p
-                          style={{
-                            marginTop: "0px",
-                            height: "19px",
-                            fontWeight: "bold",
-                            width: "130px",
-                          }}
+                          className="subtitle result"
+                          style={{ textAlign: "left" }}
                         >
-                          <span
-                            style={{
-                              marginTop: "-20px",
-                              fontSize: "30px",
-                              verticalAlign: "sub",
-                              color: "rgb(98, 218, 171)",
-                            }}
-                          >
-                            {" "}
-                            •{" "}
-                          </span>
-                          SK
+                          세부 분석결과
                         </p>
-                        <p style={{ width: "270px" }}>
-                          "Score": 0.24532733857631683
-                          <br /> "Logit": 20.588768005371
-                        </p>
+                        <>{result.answer.map(DetailAnalyze)}</>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
@@ -273,86 +337,13 @@ const Demo = () => {
               {IsLoading ? (
                 <CircularProgress />
               ) : (
-              <div className="visualization">
-                <div
-                  className="sentenceReport2"
-                  style={{ backgroundColor: "rgba(101, 119, 152, 0.15)" }}
-                >
-                  <p className="sentence">{sentence[0].sentence}</p>
-                  <p className="percent">
-                    <span>
-                      {sentence[0].condition[0].stock}&nbsp;&nbsp;&nbsp;
-                    </span>
-                    <span
-                      style={{
-                        color: "rgb(101, 119, 152)",
-                        fontWeight: "bold",
-                        opacity: "1",
-                      }}
-                    >
-                      {sentence[0].condition[0].score.toFixed(2) * 100}%
-                    </span>
-                  </p>
+                <div className="visualization">
+                  {nothing ? (
+                    <Nothing />
+                  ) : (
+                    <>{result.sentence.map(SentenceFunc)}</>
+                  )}
                 </div>
-                <div
-                  className="sentenceReport2"
-                  style={{ backgroundColor: "rgba(98, 218, 171, 0.15)" }}
-                >
-                  <p className="sentence">{sentence[1].sentence}</p>
-                  <p className="percent">
-                    <span>
-                      {sentence[1].condition[0].stock}&nbsp;&nbsp;&nbsp;
-                    </span>
-                    <span
-                      style={{
-                        color: "rgb(98, 218, 171)",
-                        fontWeight: "bold",
-                        opacity: "1",
-                      }}
-                    >
-                      {sentence[1].condition[0].score.toFixed(2) * 100}%
-                    </span>
-                  </p>
-                </div>
-                <div
-                  className="sentenceReport2"
-                  style={{ backgroundColor: colorPicker("삼성") }}
-                >
-                  <p className="sentence">{sentence[2].sentence}</p>
-                  <p className="percent">
-                    <span>
-                      {sentence[2].condition[0].stock}&nbsp;&nbsp;&nbsp;
-                    </span>
-                    <span
-                      style={{
-                        color: "rgb(99, 149, 249)",
-                        fontWeight: "bold",
-                        opacity: "1",
-                      }}
-                    >
-                      {sentence[2].condition[0].score.toFixed(2) * 100}%
-                    </span>
-                  </p>
-                </div>
-                <div
-                  className="sentenceReport2"
-                  style={{ backgroundColor: colorPicker("하이닉스") }}
-                >
-                  <p className="sentence">{sentence[3].sentence}</p>
-                  <p className="percent">
-                    <span>없음</span>
-                  </p>
-                </div>
-                <div
-                  className="sentenceReport2"
-                  style={{ backgroundColor: colorPicker("하이닉스") }}
-                >
-                  <p className="sentence">{sentence[4].sentence}</p>
-                  <p className="percent">
-                    <span>없음</span>
-                  </p>
-                </div>
-              </div>
               )}
             </div>
           </div>

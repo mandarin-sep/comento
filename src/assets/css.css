@@ -2,103 +2,464 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css");
 
 /***************************************   COMMON   ******************************************/
-* {box-sizing: border-box; font-family:'Pretendard Variable', "Noto Sans KR";}
-body {min-width: 768px; -ms-overflow-style:none;  }  /*크롬 스크롤바 없애기*/
-body::-webkit-scrollbar { display:none; } /*크롬 스크롤바 없애기*/
-#background { position: relative; background-image:linear-gradient(90deg, #1b5fce 3%, #5812b3 93%) ; background-repeat: no-repeat;  background-position: 2% 0, 98% 61px;}
-.inner {max-width: 1280px; margin: 0 auto;}
-.title {  font-size: 30px;font-weight: bold;font-stretch: normal;font-style: normal;letter-spacing: -0.75px;color: #222;}
-.subtitle {font-size: 18px;font-weight: bold;font-stretch: normal;font-style: normal;letter-spacing: -0.45px;color: #222;}
-.explain {display:inline-block; font-weight: normal; font-size: 18px; line-height: 1.78; letter-spacing: -0.45px; }
-
+* {
+  box-sizing: border-box;
+  font-family: "Pretendard Variable", "Noto Sans KR";
+}
+body {
+  min-width: 768px;
+  -ms-overflow-style: none;
+} /*크롬 스크롤바 없애기*/
+body::-webkit-scrollbar {
+  display: none;
+} /*크롬 스크롤바 없애기*/
+#background {
+  position: relative;
+  background-image: linear-gradient(90deg, #1b5fce 3%, #5812b3 93%);
+  background-repeat: no-repeat;
+  background-position: 2% 0, 98% 61px;
+}
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.75px;
+  color: #222;
+}
+.subtitle {
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.45px;
+  color: #222;
+}
+.explain {
+  display: inline-block;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.78;
+  letter-spacing: -0.45px;
+}
 
 /******************************************   HEADER  **********************************************/
-.header {position: fixed; top: 0; left: 0; right: 0; z-index: 1000 !important;}
-.header .header2 {background-color: #fff; margin: 0 auto; border-bottom: 1px solid rgba(255,255,255,0.2);  box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.05); transition: all 0.25s linear}
-.header .gnb {height: 100px; display: flex;  justify-content: space-between; align-items: center; }
-.header .gnb .logo {display:inline-block; margin: auto 0; height: 100px}
-.header .gnb ul {display:inline-block; text-align: center; margin: auto 0;}
-.header .gnb li { margin: 0 31.5px; display: inline-block; font-size:20px; font-weight: 500; letter-spacing: -0.5px; }
-.header .gnb li a{color:#fff; opacity: 0.4;}
-.header .gnb li[class~='on'] a { opacity: 1; border-bottom: 2px solid #fff;padding-bottom: 37px;}
-.header .header2 .gnb li a{color:#222;}
-.header .header2 .gnb li[class~='on'] a { opacity: 1; border-bottom: 2px solid #1b5fce; padding-bottom: 38px;}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000 !important;
+}
+.header .header2 {
+  background-color: #fff;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.25s linear;
+}
+.header .gnb {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .gnb .logo {
+  display: inline-block;
+  margin: auto 0;
+  height: 100px;
+}
+.header .gnb ul {
+  display: inline-block;
+  text-align: center;
+  margin: auto 0;
+}
+.header .gnb li {
+  margin: 0 31.5px;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+.header .gnb li a {
+  color: #fff;
+  opacity: 0.4;
+}
+.header .gnb li[class~="on"] a {
+  opacity: 1;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 37px;
+}
+.header .header2 .gnb li a {
+  color: #222;
+}
+.header .header2 .gnb li[class~="on"] a {
+  opacity: 1;
+  border-bottom: 2px solid #1b5fce;
+  padding-bottom: 38px;
+}
 
 /**********************************************  엔진 설명  *******************************************/
-.explainContainer{height: 540px; }
-.explainContainer h1{padding-top: 231px; font-size: 42px; font-weight: bold; font-stretch: normal; font-style: normal; line-height: normal; letter-spacing: -1.2px; text-align: left; color:#fff}
-.explainContainer .explain{margin-top: 44px; color:#fff; opacity: 0.8; font-size: 20px; font-weight: normal; line-height: 1.6; letter-spacing: -0.5px; text-align: left;}
+.explainContainer {
+  height: 540px;
+}
+.explainContainer h1 {
+  padding-top: 231px;
+  font-size: 42px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -1.2px;
+  text-align: left;
+  color: #fff;
+}
+.explainContainer .explain {
+  margin-top: 44px;
+  color: #fff;
+  opacity: 0.8;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.6;
+  letter-spacing: -0.5px;
+  text-align: left;
+}
 
 /********************************************  데모 영역  ************************************************/
-.demoContainer {padding-top: 150px; text-align: center; }
-.demoContainer button{height: 43px; box-shadow: none; font-size: 18px; font-weight: bold; line-height: 2.89; border: none; color: #fff;}
-.demoContainer h3{margin-bottom: 60px; font-size: 30px; font-weight: bold; line-height: 1.53;letter-spacing: -0.75px;color: #222;}
-.demoContainer .demoTab {margin-bottom: 50px;}
-.demoContainer .demoTab button{height: 50px; margin-left: 10px; padding:0 20px; border-radius: 30px; background-color: #f5f5f5; color: #aaa;}
-.demoContainer .demoTab button.on{background-color: #1b5fce; color:#fff}
+.demoContainer {
+  padding-top: 150px;
+  text-align: center;
+}
+.demoContainer button {
+  height: 43px;
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 2.89;
+  border: none;
+  color: #fff;
+}
+.demoContainer h3 {
+  margin-bottom: 60px;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.53;
+  letter-spacing: -0.75px;
+  color: #222;
+}
+.demoContainer .demoTab {
+  margin-bottom: 50px;
+}
+.demoContainer .demoTab button {
+  height: 50px;
+  margin-left: 10px;
+  padding: 0 20px;
+  border-radius: 30px;
+  background-color: #f5f5f5;
+  color: #aaa;
+}
+.demoContainer .demoTab button.on {
+  background-color: #1b5fce;
+  color: #fff;
+}
 
-.inputArea {text-align: center; }
-.inputArea .keywordBtnWrapper {display: flex; justify-content: space-between; margin-bottom: 24px;}
-.inputArea .keywordBtnWrapper .keywordBtnList div:first-child {height: 25px}
-.inputArea .keywordBtnWrapper .keywordBtnList span{ vertical-align: bottom; margin-right: 16px; color:#222; letter-spacing: -0.4px; }
-.inputArea .keywordBtnWrapper .keywordBtnList .keywordBtn{ cursor: pointer; font-weight: 500; }
-.inputArea .keywordBtnWrapper .keywordBtnList .keywordBtn:hover{ font-weight: bold; color:#1b5fce;}
-.inputArea .keywordBtnWrapper .keywordBtnList .keywordBtn[class~='click']{font-weight: bold; color:#1b5fce;}
+.inputArea {
+  text-align: center;
+}
+.inputArea .keywordBtnWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.inputArea .keywordBtnWrapper .keywordBtnList div:first-child {
+  height: 25px;
+}
+.inputArea .keywordBtnWrapper .keywordBtnList span {
+  vertical-align: bottom;
+  margin-right: 16px;
+  color: #222;
+  letter-spacing: -0.4px;
+}
+.inputArea .keywordBtnWrapper .keywordBtnList .keywordBtn {
+  cursor: pointer;
+  font-weight: 500;
+}
+.inputArea .keywordBtnWrapper .keywordBtnList .keywordBtn:hover {
+  font-weight: bold;
+  color: #1b5fce;
+}
+.inputArea .keywordBtnWrapper .keywordBtnList .keywordBtn[class~="click"] {
+  font-weight: bold;
+  color: #1b5fce;
+}
 
-.inputArea .inputWrapper {padding:30px; border-radius: 20px;border: solid 3px #1b5fce;background-color: #f7f9fb; height: 480px; }
-.inputArea .inputWrapper #inputTitle,#inputContext {width: 100%; color:#777777; font-size: 18px;font-weight: 500;line-height: 1.67;letter-spacing: -0.45px;text-align: left; border: none; background-color: #f7f9fb; padding: 12px 0;}
-.inputArea .inputWrapper #inputTitle {border-bottom: 1px solid #ddd; }
-.inputArea .inputWrapper input,textarea:focus {outline: none;}
-.inputArea .inputWrapper #inputContext { overflow-y: scroll; -ms-overflow-style: none;}
-.inputArea .inputWrapper #inputContext::-webkit-scrollbar { display:none; }
-.inputArea .analysisBtn {width: 300px;height: 50px;margin-top: 60px; margin-bottom:150px; border-radius: 30px;background-image: linear-gradient(98deg, #5812b3 3%, #1b5fce 99%); color:#fff;} /* 추출하기버튼 */
-
+.inputArea .inputWrapper {
+  padding: 30px;
+  border-radius: 20px;
+  border: solid 3px #1b5fce;
+  background-color: #f7f9fb;
+  height: 480px;
+}
+.inputArea .inputWrapper #inputTitle,
+#inputContext {
+  width: 100%;
+  color: #777777;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.67;
+  letter-spacing: -0.45px;
+  text-align: left;
+  border: none;
+  background-color: #f7f9fb;
+  padding: 12px 0;
+}
+.inputArea .inputWrapper #inputTitle {
+  border-bottom: 1px solid #ddd;
+}
+.inputArea .inputWrapper input,
+textarea:focus {
+  outline: none;
+}
+.inputArea .inputWrapper #inputContext {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+.inputArea .inputWrapper #inputContext::-webkit-scrollbar {
+  display: none;
+}
+.inputArea .analysisBtn {
+  width: 300px;
+  height: 50px;
+  margin-top: 60px;
+  margin-bottom: 150px;
+  border-radius: 30px;
+  background-image: linear-gradient(98deg, #5812b3 3%, #1b5fce 99%);
+  color: #fff;
+} /* 추출하기버튼 */
 
 /*결과*/
-.resultArea {padding: 150px 0;}
-.resultArea .title {text-align: left; margin-bottom: 24px;}
-.resultArea .visualization {background-color: #fff; width: 100%;  border-radius: 20px; border: solid 1px #ededed; padding: 40px; min-height: 234px;}
-.resultArea .visualization {background-color: #fff; width: 100%;  border-radius: 20px; border: solid 1px #ededed; padding: 40px; min-height: 234px;}
-.resultArea .visualization span {display:inline-block;font-size: 16px;font-weight: bold; letter-spacing: -0.6px;color: #ddd; margin-top: 6%; }
-.resultArea .visualization span.empty {display:inline-block;font-size: 24px;font-weight: bold; letter-spacing: -0.6px;color: #ddd; }
+.resultArea {
+  padding: 150px 0;
+}
+.resultArea .title {
+  text-align: left;
+  margin-bottom: 24px;
+}
+.resultArea .visualization {
+  background-color: #fff;
+  width: 100%;
+  border-radius: 20px;
+  border: solid 1px #ededed;
+  padding: 40px;
+  min-height: 234px;
+  display: relative;
+}
+.resultArea .visualization {
+  background-color: #fff;
+  width: 100%;
+  border-radius: 20px;
+  border: solid 1px #ededed;
+  padding: 40px;
+  min-height: 234px;
+}
+.resultArea .visualization span {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: -0.6px;
+  color: #ddd;
+  margin-top: 6%;
+}
+.resultArea .visualization span.empty {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -0.6px;
+  color: #ddd;
+}
 
-.resultSection1 {position: relative; }
-.resultSection1 .visualization {min-height: 363px; }
-.resultSection1 .visualization span{margin-top: 11.5%; }
-.resultSection1 .visualization .chartExplain {text-align: left; margin-right: 62px; height: 258px; padding-top: 40px;}
-.resultSection1 .visualization .chartExplain .list {margin-top: 40px; margin-bottom: 24px;}
-.resultSection1 .visualization .chart {display: flex; align-items: center;}
-.resultSection1 .visualization .detailExplain {padding-top: 40px; margin-left: 70px}
-.resultSection1 .visualization .detailExplain div {display:flex; justify-content: space-between; margin-top: 24px;}
-.resultSection1 .visualization .detailExplain div p {font-size: 16px;text-align: left; min-width: 100px; line-height: 1.88; font-weight: 500;letter-spacing: -0.4px;color: #222;}
-.resultSection1 .visualization .detailExplain div p:last-child {letter-spacing: normal;color: #555;}
-.resultSection2 {position: relative; margin-top: 100px; }
-.resultSection2 .sentenceReport2{ margin-bottom: 16px; padding: 16px 20px; display: flex; justify-content: space-between; text-align: left}
-.resultSection2 .sentenceReport2 p { line-height: 1.75;letter-spacing: -0.4px;text-align: left;color: #555; }
-.resultSection2 .sentenceReport2 p span{font-size: 16px;line-height: 1.88;letter-spacing: -0.4px;text-align: right;color: #222; }
-.resultSection2 .sentenceReport2 p.sentence{width: 85%; }
+.resultSection1 {
+  position: relative;
+}
+.resultSection1 .visualization {
+  min-height: 363px;
+}
+.resultSection1 .visualization span {
+  margin-top: 11.5%;
+}
+.resultSection1 .visualization .chartExplain {
+  text-align: left;
+  margin-right: 62px;
+  height: 258px;
+  padding-top: 40px;
+}
+.resultSection1 .visualization .chartExplain .list {
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+.resultSection1 .visualization .chart {
+  display: flex;
+  align-items: center;
+}
+.resultSection1 .visualization .detailExplain {
+  padding-top: 40px;
+  margin-left: 70px;
+}
+.resultSection1 .visualization .detailExplain div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.resultSection1 .visualization .detailExplain div p {
+  font-size: 16px;
+  text-align: left;
+  min-width: 100px;
+  line-height: 1.88;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: #222;
+}
+.resultSection1 .visualization .detailExplain div p:last-child {
+  letter-spacing: normal;
+  color: #555;
+}
+.resultSection2 {
+  position: relative;
+  margin-top: 100px;
+}
+.resultSection2 .sentenceReport2 {
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+.resultSection2 .sentenceReport2 p {
+  line-height: 1.75;
+  letter-spacing: -0.4px;
+  text-align: left;
+  color: #555;
+}
+.resultSection2 .sentenceReport2 p span {
+  font-size: 16px;
+  line-height: 1.88;
+  letter-spacing: -0.4px;
+  text-align: right;
+  color: #222;
+}
+.resultSection2 .sentenceReport2 p.sentence {
+  width: 85%;
+}
 
 /*******************************************  특징, 강점 영역  ********************************************/
-.strengthContainer {text-align: center;}
-.strengthContainer .characteristic{padding: 150px 0; }
-.strengthContainer .characteristic p {margin-bottom: 50px; font-size: 30px;font-weight: bold;font-stretch: normal;letter-spacing: -0.75px;color: #222;}
-.strengthContainer .characteristic .explain {color: #555;}
-.strengthContainer .strength {padding: 150px 0; display: flex; justify-content: space-between}
-.strengthContainer .strength div {max-width: 624px; min-height: 552px; padding: 60px 50px; border-radius: 20px; flex: auto;}
-.strengthContainer .strength .card1 {background-color: #5812b3; margin-right: 32px;  background-repeat: no-repeat; background-position:100% 10%; }
-.strengthContainer .strength .card2 {background-color: #1b5fce; background-repeat: no-repeat; background-position: 100% 10%; }
-.strengthContainer .strength div p:first-child {font-size: 30px;font-weight: bold;line-height: normal;letter-spacing: -0.75px;text-align: left;color: #bb8ff5;}
-.strengthContainer .strength .card2 p:first-child {color: #7caaf5;}
-.strengthContainer .strength div p:nth-child(2) {margin-top:50px; font-size: 28px;font-weight: bold;line-height: 1.5;letter-spacing: -0.7px;text-align: left;color: #fff;}
-.strengthContainer .strength .explain {margin-top:56px; color: #cecece; text-align: left;line-height: 1.78;}
+.strengthContainer {
+  text-align: center;
+}
+.strengthContainer .characteristic {
+  padding: 150px 0;
+}
+.strengthContainer .characteristic p {
+  margin-bottom: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  letter-spacing: -0.75px;
+  color: #222;
+}
+.strengthContainer .characteristic .explain {
+  color: #555;
+}
+.strengthContainer .strength {
+  padding: 150px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.strengthContainer .strength div {
+  max-width: 624px;
+  min-height: 552px;
+  padding: 60px 50px;
+  border-radius: 20px;
+  flex: auto;
+}
+.strengthContainer .strength .card1 {
+  background-color: #5812b3;
+  margin-right: 32px;
+  background-repeat: no-repeat;
+  background-position: 100% 10%;
+}
+.strengthContainer .strength .card2 {
+  background-color: #1b5fce;
+  background-repeat: no-repeat;
+  background-position: 100% 10%;
+}
+.strengthContainer .strength div p:first-child {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: -0.75px;
+  text-align: left;
+  color: #bb8ff5;
+}
+.strengthContainer .strength .card2 p:first-child {
+  color: #7caaf5;
+}
+.strengthContainer .strength div p:nth-child(2) {
+  margin-top: 50px;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: -0.7px;
+  text-align: left;
+  color: #fff;
+}
+.strengthContainer .strength .explain {
+  margin-top: 56px;
+  color: #cecece;
+  text-align: left;
+  line-height: 1.78;
+}
 
 /*******************************************  FOOTER  ****************************************************/
-.footer { height: 193px; position: relative; background: #fff; border-top: solid 1px #ededed;}
-.footer .footerInfo {margin-top:33.8px;display: flex; justify-content: space-between; color: #777; font-size: 13px; font-weight: 500; }
-.footer .footerInfo .company{text-align: left;}
-.footer .footerInfo .company ul {display: flex;}
-.footer .footerInfo .company ul li { margin-right: 8px;  font-size: 13px;font-weight: 500;line-height: 1.75;letter-spacing: -0.65px;text-align: left;color: #777;}
-.footer .footerInfo .company ul li:not(:last-child)::after {content: '|'; margin-left: 8px;}
-.footer .footerInfo .contact{text-align: right;}
-.footer .footerInfo .contact .copyright  {bottom: 40px;}
-
+.footer {
+  height: 193px;
+  position: relative;
+  background: #fff;
+  border-top: solid 1px #ededed;
+}
+.footer .footerInfo {
+  margin-top: 33.8px;
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  font-size: 13px;
+  font-weight: 500;
+}
+.footer .footerInfo .company {
+  text-align: left;
+}
+.footer .footerInfo .company ul {
+  display: flex;
+}
+.footer .footerInfo .company ul li {
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: -0.65px;
+  text-align: left;
+  color: #777;
+}
+.footer .footerInfo .company ul li:not(:last-child)::after {
+  content: "|";
+  margin-left: 8px;
+}
+.footer .footerInfo .contact {
+  text-align: right;
+}
+.footer .footerInfo .contact .copyright {
+  bottom: 40px;
+}
