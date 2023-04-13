@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Pie } from "@ant-design/plots";
 import CircularProgress from "@mui/material/CircularProgress";
-import axios from "axios";
 import sampleNews from "../assets/sentence";
+import { getResult } from "../apis/stocks_api";
 
 const Demo = () => {
   const [IsLoading, setIsLoading] = useState(false);
@@ -11,7 +11,6 @@ const Demo = () => {
   const [index, setIndex] = useState();
   const [result, setResult] = useState({});
   const [sampleCliked, setSampledClicked] = useState(false);
-  const url = "https://d9390710-b9c8-490b-8005-e11d0772b58c.mock.pstmn.io";
 
   const data = result.answer;
 
@@ -44,15 +43,11 @@ const Demo = () => {
       window.alert("추출할 뉴스가 선택되지않았습니다");
       return;
     }
-    axios
-      .get(`${url}/stock/news?idx=${index}`)
-      .then((response) => {
-        console.log(response.data);
-        //결과 데이터를 받아와 상태 수정
-        setResult(response.data);
-      })
-      .catch((err) => console.log(err.message));
+
     setIsLoading(true);
+
+    getResult(index, setResult);
+
     setTimeout(() => {
       setIsLoading(false);
       setNothing(false);
