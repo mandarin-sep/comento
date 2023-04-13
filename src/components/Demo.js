@@ -39,6 +39,13 @@ const Demo = () => {
   };
 
   const handleClick = () => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    if (!user) {
+      window.alert("회원전용 서비스 입니다.");
+      return;
+    }
+
     if (!sampleCliked) {
       window.alert("추출할 뉴스가 선택되지않았습니다");
       return;
